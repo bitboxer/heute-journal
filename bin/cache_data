@@ -4,7 +4,6 @@
 
 require('babel-core/register')();
 require('babel-polyfill');
+const cacheData = require('../src/cache_data.mjs').default;
 
-const cache = require('../src/cache_data').default;
-
-cache();
+cacheData();

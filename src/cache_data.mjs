@@ -4,7 +4,7 @@ import schedule from './schedule.mjs';
 import mediathek from './mediathek.mjs';
 
 export default function (fetchInstance) {
-  Promise.all([
+  return Promise.all([
     schedule(fetchInstance),
     mediathek(fetchInstance),
   ]).then((data) => {
