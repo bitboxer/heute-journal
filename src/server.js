@@ -1,15 +1,31 @@
 import Koa from 'koa';
 import Router from 'koa-router';
+import KoaViews from 'koa-views';
+import Path from 'path';
 
 import schedule from './schedule.mjs';
+import mediathek from './mediathek.mjs';
 
 const app = new Koa();
 const router = new Router();
 
-router.get('/', async (ctx) => {
-  const result = await schedule();
+app.use(KoaViews(Path.join(__dirname, '/../views'), {
+  extension: 'ejs',
+  map: {
+    html: 'ejs',
+  },
+}));
 
-  ctx.body = result;
+router.get('/', async (ctx) => {
+  const result = await Promise.all([
+    schedule(),
+    mediathek(),
+  ]);
+
+  await ctx.render('index', {
+    schedule: result[0],
+    mediathek: result[1],
+  });
 });
 
 app
