@@ -12,6 +12,7 @@ that follow these steps:
 
 ```shell
 yarn
+./bin/cache_data
 npm start
 ```
 
