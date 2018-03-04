@@ -1,18 +1,7 @@
 import 'babel-polyfill';
 import cheerio from 'cheerio';
 import nodeFetch from 'node-fetch';
-
-function loadUrl(fetch, url) {
-  return (async function load() {
-    try {
-      const res = await fetch(url);
-      const body = await res.text();
-      return { body };
-    } catch (e) {
-      return { body: '' };
-    }
-  }());
-}
+import loadUrl from './load_url.mjs';
 
 function cleanupTitle(element) {
   return cheerio(element)
