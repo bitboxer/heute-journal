@@ -1,17 +1,45 @@
 <html>
+  <head>
+    <title>heute-journal</title>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <meta name="viewport" content="width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="/images/logo.png">
+  </head>
   <body>
-    <%= schedule.time %>
-    <%= schedule.length %>min
+    <div class="header">
+      <img class="logo" src='/images/logo.svg' />
+      <div class="title">
+        heute-journal
+      </div>
+    </div>
 
-    <a href='<%= mediathek.link %>'><%= mediathek.title %></a>
+    <div class="content">
+    <div class="time">
+      <%= schedule.time %>
+    </div>
+    <div class="length">
+      <%= schedule.length %>min
+    </div>
 
-    <a href='https://www.zdf.de/live-tv'>ZDF Live Stream</a>
+    <div class="mediathek">
+      <a href='<%= mediathek.link %>'><%= mediathek.title %></a>
+    </div>
 
-    <div>
-      <a href='https://github.com/bitboxer/heute-journal'>Github</a>
-      <p>
+    <div class="live">
+      <a href='https://www.zdf.de/live-tv'>ZDF Live Stream</a>
+    </div>
+
+  </div>
+
+    <div class="footer">
+      <div class="github">
+        <a href='https://github.com/bitboxer/heute-journal'>Github</a>
+      </div>
+      <div class="icon">
         Icon <a href='https://creativecommons.org/licenses/by/3.0/us/legalcode'>CC-BY</a> by <a href='https://thenounproject.com/term/tv-news/286694/#'>Rflor</a>
-      </p>
+      </div>
     </div>
   </body>
 </html>
