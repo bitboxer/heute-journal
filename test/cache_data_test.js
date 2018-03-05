@@ -24,5 +24,5 @@ describe('CacheData', () => {
         time: '21:45',
       },
     });
-  }).timeout(1000);
+  }).timeout(5000);
 });
