@@ -15,4 +15,16 @@ describe('Schedule', () => {
       length: 15,
     });
   }).timeout(1000);
+
+  it('should correct a wrong duration in the data', async () => {
+    const mock = new FetchMock();
+
+    mock.addPage(fs.readFileSync('./test/data/schedule_wrong.html').toString());
+
+    const result = await schedule((url, params) => mock.fetch(url, params));
+    expect(result).to.eql({
+      time: '21:30',
+      length: 10,
+    });
+  });
 });

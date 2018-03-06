@@ -1,5 +1,6 @@
 import 'babel-polyfill';
 import cheerio from 'cheerio';
+import moment from 'moment';
 import nodeFetch from 'node-fetch';
 import loadUrl from './load_url.mjs';
 
@@ -12,32 +13,40 @@ function cleanupTitle(element) {
     .trim();
 }
 
-function parseShow(html) {
-  const time = cheerio(html).find('.overlay-link-time .time').text();
+function timeFromShow(show) {
+  const time = cheerio(show).find('.overlay-link-time .time').text();
   const match = time.match(/(\d{2}):(\d{2}) - (\d{2}):(\d{2})/);
 
-  const length =
-    ((parseInt(match[3], 10) * 60) + parseInt(match[4], 10)) -
-    ((parseInt(match[1], 10) * 60) + parseInt(match[2], 10));
+  return moment({ hour: match[1], minute: match[2] });
+}
+
+function parseShow(show, nextShow) {
+  const newsTime = timeFromShow(show);
+  const nextTime = timeFromShow(nextShow);
 
   return {
-    time: `${match[1]}:${match[2]}`,
-    length,
+    time: newsTime.format('HH:mm'),
+    length: moment(nextTime.diff(newsTime)).minutes(),
   };
+}
+
+function showAfter(rows, show) {
+  return rows[rows.indexOf(show) + 1];
 }
 
 function parseHTML(result) {
   return new Promise((resolve) => {
     const page = cheerio.load(result.body);
-    const rows = page('.timeline-ZDF li');
+    const rows = Array.from(page('.timeline-ZDF li'));
 
-    const filtered = Array.from(rows).filter((row) => {
+    const heuteJournal = rows.filter((row) => {
       const title = cleanupTitle(row);
       return title === 'heute-journal';
-    });
+    })[0];
 
-    if (filtered.length === 1) {
-      resolve(parseShow(filtered[0]));
+    if (heuteJournal) {
+      const nextShow = showAfter(rows, heuteJournal);
+      resolve(parseShow(heuteJournal, nextShow));
     } else {
       resolve({});
     }
