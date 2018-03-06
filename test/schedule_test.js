@@ -27,4 +27,16 @@ describe('Schedule', () => {
       length: 10,
     });
   });
+
+  it('should say that there is no show if it is not on today', async () => {
+    const mock = new FetchMock();
+
+    mock.addPage(fs.readFileSync('./test/data/schedule_no_show_tonight.html').toString());
+
+    const result = await schedule((url, params) => mock.fetch(url, params));
+    expect(result).to.eql({
+      time: 'nein',
+      length: 0,
+    });
+  });
 });

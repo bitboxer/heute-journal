@@ -48,7 +48,10 @@ function parseHTML(result) {
       const nextShow = showAfter(rows, heuteJournal);
       resolve(parseShow(heuteJournal, nextShow));
     } else {
-      resolve({});
+      resolve({
+        time: 'nein',
+        length: 0,
+      });
     }
   });
 }
