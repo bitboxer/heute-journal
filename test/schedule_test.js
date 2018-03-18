@@ -51,5 +51,4 @@ describe('Schedule', () => {
       length: 30,
     });
   }).timeout(1000);
-
 });
