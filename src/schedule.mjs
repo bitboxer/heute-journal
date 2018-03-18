@@ -41,7 +41,7 @@ function parseHTML(result) {
 
     const heuteJournal = rows.filter((row) => {
       const title = cleanupTitle(row);
-      return title === 'heute-journal';
+      return title.startsWith('heute-journal');
     })[0];
 
     if (heuteJournal) {

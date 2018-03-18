@@ -39,4 +39,17 @@ describe('Schedule', () => {
       length: 0,
     });
   });
+
+  it('should return an object with data from the tv page even if the name has a suffix', async () => {
+    const mock = new FetchMock();
+
+    mock.addPage(fs.readFileSync('./test/data/schedule_name_suffix.html').toString());
+
+    const result = await schedule((url, params) => mock.fetch(url, params));
+    expect(result).to.eql({
+      time: '22:30',
+      length: 30,
+    });
+  }).timeout(1000);
+
 });
