@@ -51,4 +51,16 @@ describe('Schedule', () => {
       length: 30,
     });
   }).timeout(1000);
+
+  it('should also match with heute-journal', async () => {
+    const mock = new FetchMock();
+
+    mock.addPage(fs.readFileSync('./test/data/schedule_with_hyphen.html').toString());
+
+    const result = await schedule((url, params) => mock.fetch(url, params));
+    expect(result).to.eql({
+      time: '21:50',
+      length: 15,
+    });
+  }).timeout(1000);
 });
