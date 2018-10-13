@@ -6,6 +6,21 @@
     <meta name="viewport" content="width=device-width">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="apple-touch-icon" href="/images/logo.png">
+    <!-- Fathom - simple website analytics - https://github.com/usefathom/fathom -->
+    <script>
+      (function(f, a, t, h, o, m){
+        a[h]=a[h]||function(){
+          (a[h].q=a[h].q||[]).push(arguments)
+        };
+        o=f.createElement('script'),
+        m=f.getElementsByTagName('script')[0];
+        o.async=1; o.src=t; o.id='fathom-script';
+        m.parentNode.insertBefore(o,m)
+      })(document, window, '//ping.bitboxer.de/tracker.js', 'fathom');
+      fathom('set', 'siteId', 'RPYCP');
+      fathom('trackPageview');
+    </script>
+    <!-- / Fathom -->
   </head>
   <body>
     <div class="header">
